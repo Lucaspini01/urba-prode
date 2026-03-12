@@ -19,6 +19,7 @@ export default function Navbar({ username, clubLogo, clubShortName, isAdmin }: N
     { href: "/", label: "Predicciones" },
     { href: "/ranking", label: "Ranking" },
     { href: "/historial", label: "Historial" },
+    { href: "/clubes", label: "Clubes" },
   ];
 
   const isActive = (href: string) =>
