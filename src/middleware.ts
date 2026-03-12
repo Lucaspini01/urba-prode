@@ -13,10 +13,10 @@ export function middleware(request: NextRequest) {
 
   if (isPublic) return NextResponse.next();
 
-  // next-auth sets one of these two cookies (http vs https)
+  // next-auth v5 sets one of these cookies (http vs https)
   const sessionToken =
-    request.cookies.get("next-auth.session-token")?.value ||
-    request.cookies.get("__Secure-next-auth.session-token")?.value;
+    request.cookies.get("authjs.session-token")?.value ||
+    request.cookies.get("__Secure-authjs.session-token")?.value;
 
   if (!sessionToken) {
     const loginUrl = new URL("/login", request.url);
