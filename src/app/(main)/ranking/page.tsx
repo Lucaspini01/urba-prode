@@ -18,6 +18,13 @@ export default async function RankingPage({
 
   const selectedFechaId = params.fecha ? parseInt(params.fecha) : null;
 
+  // Fetch all non-admin users with their club
+  const users = await prisma.user.findMany({
+    where: { isAdmin: false },
+    include: { club: true },
+  });
+
+  // Fetch prediction sums grouped by user
   const predGroups = await prisma.prediction.groupBy({
     by: ["userId"],
     where: {
@@ -28,26 +35,22 @@ export default async function RankingPage({
     _count: { id: true },
   });
 
-  const userIds = predGroups.map((g) => g.userId);
-  const users = await prisma.user.findMany({
-    where: { id: { in: userIds } },
-    include: { club: true },
-  });
+  const pointsMap = new Map(
+    predGroups.map((g) => [g.userId, { points: g._sum.points ?? 0, predictions: g._count.id }])
+  );
 
-  const entries = predGroups
-    .map((g) => {
-      const user = users.find((u) => u.id === g.userId);
-      if (!user) return null;
+  const entries = users
+    .map((user) => {
+      const stats = pointsMap.get(user.id) ?? { points: 0, predictions: 0 };
       return {
         userId: user.id,
         username: user.username,
         clubLogo: user.club.logoPath,
         clubShortName: user.club.shortName,
-        points: g._sum.points ?? 0,
-        predictions: g._count.id,
+        points: stats.points,
+        predictions: stats.predictions,
       };
     })
-    .filter((e): e is NonNullable<typeof e> => e !== null)
     .sort((a, b) => b.points - a.points)
     .map((entry, i) => ({ ...entry, rank: i + 1 }));
 
