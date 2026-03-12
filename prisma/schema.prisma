@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Club {
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+  shortName   String
+  logoPath    String  // /clubs/nombre.png
+  users       User[]
+  homeMatches Match[] @relation("HomeTeam")
+  awayMatches Match[] @relation("AwayTeam")
+}
+
+model User {
+  id          Int          @id @default(autoincrement())
+  username    String       @unique
+  password    String
+  clubId      Int
+  club        Club         @relation(fields: [clubId], references: [id])
+  isAdmin     Boolean      @default(false)
+  predictions Prediction[]
+  createdAt   DateTime     @default(now())
+}
+
+model Fecha {
+  id       Int       @id @default(autoincrement())
+  number   Int
+  season   Int       @default(2026)
+  isActive Boolean   @default(false)
+  deadline DateTime?
+  matches  Match[]
+}
+
+model Match {
+  id          Int          @id @default(autoincrement())
+  fechaId     Int
+  fecha       Fecha        @relation(fields: [fechaId], references: [id])
+  homeTeamId  Int
+  homeTeam    Club         @relation("HomeTeam", fields: [homeTeamId], references: [id])
+  awayTeamId  Int
+  awayTeam    Club         @relation("AwayTeam", fields: [awayTeamId], references: [id])
+  scheduledAt DateTime?
+  homeScore   Int?
+  awayScore   Int?
+  isFinished  Boolean      @default(false)
+  predictions Prediction[]
+}
+
+model Prediction {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  matchId   Int
+  match     Match    @relation(fields: [matchId], references: [id])
+  pick      Pick
+  margin    Margin
+  points    Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, matchId])
+}
+
+enum Pick {
+  HOME
+  AWAY
+  DRAW
+}
+
+enum Margin {
+  MORE_7
+  LESS_7
+}

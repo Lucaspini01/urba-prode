@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs><clipPath id="clip-csf"><circle cx="50" cy="50" r="47"/></clipPath></defs>
+  <g clip-path="url(#clip-csf)">
+    <rect x="0" y="0"  width="100" height="33" fill="#FFFFFF"/>
+    <rect x="0" y="33" width="100" height="34" fill="#0057B8"/>
+    <rect x="0" y="67" width="100" height="33" fill="#00843D"/>
+  </g>
+  <circle cx="50" cy="50" r="47" fill="none" stroke="#0057B8" stroke-width="3"/>
+  <text x="50" y="58" text-anchor="middle" fill="#FFFFFF"
+        font-family="Arial,sans-serif" font-weight="bold" font-size="22"
+        stroke="#0057B8" stroke-width="3" paint-order="stroke">CSF</text>
+</svg>

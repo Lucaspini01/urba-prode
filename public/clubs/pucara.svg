@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="47" fill="#D71920" stroke="#A01015" stroke-width="3"/>
+  <text x="50" y="58" text-anchor="middle" fill="#FFFFFF"
+        font-family="Arial,sans-serif" font-weight="bold" font-size="22">PUC</text>
+</svg>

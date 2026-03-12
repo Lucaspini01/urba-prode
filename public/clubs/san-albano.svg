@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs><clipPath id="clip-sal"><circle cx="50" cy="50" r="47"/></clipPath></defs>
+  <g clip-path="url(#clip-sal)">
+    <rect x="0" y="0"  width="100" height="33" fill="#FFD100"/>
+    <rect x="0" y="33" width="100" height="34" fill="#6EC6FF"/>
+    <rect x="0" y="67" width="100" height="33" fill="#0057B8"/>
+  </g>
+  <circle cx="50" cy="50" r="47" fill="none" stroke="#0057B8" stroke-width="3"/>
+  <text x="50" y="58" text-anchor="middle" fill="#FFFFFF"
+        font-family="Arial,sans-serif" font-weight="bold" font-size="22"
+        stroke="#003B7A" stroke-width="3" paint-order="stroke">SAL</text>
+</svg>
