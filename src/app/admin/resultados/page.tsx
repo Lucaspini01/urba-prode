@@ -2,8 +2,13 @@
 
 import { useState, useEffect } from "react";
 
+const TIRA_LABELS: Record<string, string> = {
+  PRIMERA: "Primera", INTERMEDIA: "Intermedia",
+  PRE_A: "Pre A", PRE_B: "Pre B", PRE_C: "Pre C", PRE_D: "Pre D",
+};
+
 type Club = { id: number; name: string; shortName: string };
-type Fecha = { id: number; number: number; season: number };
+type Fecha = { id: number; number: number; season: number; tira: string };
 type Match = {
   id: number;
   homeTeam: Club;
@@ -94,7 +99,7 @@ export default function ResultadosPage() {
           <option value="">Elegir fecha...</option>
           {fechas.map((f) => (
             <option key={f.id} value={f.id}>
-              Fecha {f.number} · {f.season}
+              {TIRA_LABELS[f.tira] ?? f.tira} — Fecha {f.number} · {f.season}
             </option>
           ))}
         </select>

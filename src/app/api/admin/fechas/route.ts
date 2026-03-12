@@ -24,9 +24,9 @@ export async function POST(req: NextRequest) {
   const session = await requireAdmin();
   if (!session) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
-  const { number, season, deadline } = await req.json();
+  const { number, season, tira, deadline } = await req.json();
 
-  if (!number || !season) {
+  if (!number || !season || !tira) {
     return NextResponse.json({ error: "Faltan datos." }, { status: 400 });
   }
 
@@ -34,6 +34,7 @@ export async function POST(req: NextRequest) {
     data: {
       number,
       season,
+      tira,
       deadline: deadline ? new Date(deadline) : null,
     },
   });

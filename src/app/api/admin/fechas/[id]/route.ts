@@ -8,7 +8,7 @@ async function requireAdmin() {
   return session;
 }
 
-// PATCH /api/admin/fechas/[id] — toggle isActive
+// PATCH /api/admin/fechas/[id] — toggle isActive (per tira)
 export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -21,9 +21,12 @@ export async function PATCH(
   const { isActive } = await req.json();
 
   if (isActive) {
-    // Activar: desactivar todas primero
+    const fecha = await prisma.fecha.findUnique({ where: { id: fechaId }, select: { tira: true } });
+    if (!fecha) return NextResponse.json({ error: "Not found" }, { status: 404 });
+
+    // Deactivate all fechas of the same tira, then activate this one
     await prisma.$transaction([
-      prisma.fecha.updateMany({ data: { isActive: false } }),
+      prisma.fecha.updateMany({ where: { tira: fecha.tira }, data: { isActive: false } }),
       prisma.fecha.update({ where: { id: fechaId }, data: { isActive: true } }),
     ]);
   } else {
@@ -44,7 +47,6 @@ export async function DELETE(
   const { id } = await params;
   const fechaId = parseInt(id);
 
-  // Borrar predicciones → partidos → fecha (por foreign keys)
   const matches = await prisma.match.findMany({ where: { fechaId }, select: { id: true } });
   const matchIds = matches.map((m) => m.id);
 

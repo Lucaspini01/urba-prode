@@ -32,6 +32,7 @@ model Fecha {
   id       Int       @id @default(autoincrement())
   number   Int
   season   Int       @default(2026)
+  tira     Tira      @default(PRIMERA)
   isActive Boolean   @default(false)
   deadline DateTime?
   matches  Match[]
@@ -65,6 +66,15 @@ model Prediction {
   updatedAt DateTime @updatedAt
 
   @@unique([userId, matchId])
+}
+
+enum Tira {
+  PRIMERA
+  INTERMEDIA
+  PRE_A
+  PRE_B
+  PRE_C
+  PRE_D
 }
 
 enum Pick {
