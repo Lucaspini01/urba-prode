@@ -15,7 +15,7 @@ const clubs = [
   { name: "Deportiva Francesa", shortName: "ADF", logoPath: "/clubs/deportiva-francesa.svg" },
   { name: "San Fernando", shortName: "CSF", logoPath: "/clubs/san-fernando.svg" },
   { name: "Pueyrredon", shortName: "PUEY", logoPath: "/clubs/pueyrredon.svg" },
-  { name: "Universitario de la Plata", shortName: "UdlP", logoPath: "/clubs/universitario-lp.svg" },
+  { name: "Universitario de la Plata", shortName: "UDLP", logoPath: "/clubs/universitario-lp.svg" },
   { name: "San Andres", shortName: "SAN", logoPath: "/clubs/san-andres.svg" },
   { name: "Pucara", shortName: "PUC", logoPath: "/clubs/pucara.svg" },
 ];
